@@ -107,7 +107,6 @@ BEGIN_EVENT_TABLE(MainUiFrame, wxFrame)
 
 
 	EVT_MENU(ID_InitCamera, MainUiFrame::InitCamera)
-	EVT_MENU(ID_outil_compute_shape, MainUiFrame::OnComputeShape)
 	EVT_MENU(ID_outil_resultpostprocess_substract_recepteursurf,  MainUiFrame::OnSubstractRecepteurS)
 	//EVT_MENU(ID_outil_options, MainUiFrame::OnShowPreferenceTree)
 
@@ -249,7 +248,6 @@ MainUiFrame::MainUiFrame(wxLocale &lang) : wxFrame(NULL, -1, _("Interface ")+APP
 	affichage_material_menu->Check(ID_ModelMaterial,true);
 
 	view_line_menu = new wxMenu;
-	view_line_menu->Append(ID_outil_compute_shape, _("Contour lines calculation"));
 	view_line_menu->Append(ID_wireframe_all, _("All"),"All",wxITEM_RADIO);
 	view_line_menu->Append(ID_wireframe_shape, _("Contour"),"Contour",wxITEM_RADIO);
 	view_line_menu->Append(ID_wireframe_none, _("None"),"None",wxITEM_RADIO);
@@ -704,10 +702,7 @@ void MainUiFrame::OnSubstractRecepteurS(wxCommandEvent& event)
 {
 	projetCourant->OnMenuSubstractRecepteurSurf();
 }
-void MainUiFrame::OnComputeShape(wxCommandEvent& event)
-{
-	projetCourant->DoShapeComputation(true);
-}
+
 void MainUiFrame::OnRadioZ(wxCommandEvent& event)
 {
 	if(event.GetEventType()==wxEVT_COMMAND_RADIOBUTTON_SELECTED )
@@ -872,6 +867,7 @@ void MainUiFrame::OnShowAboutDialog(wxCommandEvent& event)
 	aboutDlg.SetVersion(wxString::Format("[%i.%i.%i]",ApplicationConfiguration::SPPS_UI_VERSION_MAJOR,ApplicationConfiguration::SPPS_UI_VERSION_MINOR,ApplicationConfiguration::SPPS_UI_VERSION_REVISION));
 	aboutDlg.SetName(APPLICATION_NAME);
 	aboutDlg.SetWebSite(wxT("http://i-simpa.ifsttar.fr"));
+	aboutDlg.SetDescription(wxString::Format(_("Classical Theory [%i.%i.%i]\nSPPS [%i.%i.%i]"),ApplicationConfiguration::CTR_VERSION_MAJOR,ApplicationConfiguration::CTR_VERSION_MINOR,ApplicationConfiguration::CTR_VERSION_REVISION,ApplicationConfiguration::SPPS_VERSION_MAJOR,ApplicationConfiguration::SPPS_VERSION_MINOR,ApplicationConfiguration::SPPS_VERSION_REVISION));
 	//aboutDlg.SetLicence(GetLicenseText());
 	aboutDlg.SetLicence(_("I-Simpa is an open source software (GPL v3)."));
 	aboutDlg.AddDeveloper("Nicolas Fortin (Ifsttar)");
